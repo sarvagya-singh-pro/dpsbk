@@ -1,24 +1,36 @@
 "use client";
 import styles from './css/home.module.css'
-import { FaInstagram } from "react-icons/fa";
-import { FaWhatsapp } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
-import EDUSVG from '../../public/education.svg'
+import ClassImageMeme from '../../public/YourClass.png'
+import YourClass from '../../public/subject.png'
 import Wave from 'react-wavify'
+import { Poppins } from 'next/font/google';
 import '@mantine/core/styles.css';
 import Image from 'next/image';
 import { CiMenuFries } from "react-icons/ci";
-import { Text, Title, MantineProvider, Select, Button, Drawer, Group } from '@mantine/core';
+import { Text, Title, MantineProvider, Select, Button, Drawer, Group, Loader, Center } from '@mantine/core';
 import { useState,useEffect } from 'react';
+const poppins=Poppins({subsets: ['latin'],weight:['200']})
+   
 const page = () => {
-    const [ClassSelect,SetClass]=useState(null)
+ 
+ const [contri,SetContri]=useState({})
+ useEffect(()=>{
+  async function a(){
+   const data=await (await fetch('/api/contri')).json()
+    SetContri(data["message"])
+    SetLoading(true)
+  }a()
+ },[])
+   const [ClassSelect,SetClass]=useState(null)
     const[Sub,SetSub]=useState(null)
     const[draw,SetDraw]=useState(false)
     const [Teachers,SetTeachers]=useState(null)
+    const [loading,SetLoading]=useState(false)
     const [windowSize, setWindowSize] = useState({
       width: undefined,
       height: undefined,
     });
+  
   
     useEffect(() => {
       // only execute all the code below in client side
@@ -40,6 +52,8 @@ const page = () => {
     
     return (
         <MantineProvider>
+          {loading?
+          <>
         <div>
         <Drawer position='right' opened={draw} onClose={()=>{SetDraw(false)}} >
         <Group >
@@ -52,13 +66,18 @@ const page = () => {
                 
                 <nav className={styles.navbar}>
                     <li>Notes</li>
-                    <li>Question Paper</li>
                     <li>Teachers</li>
+                    <li>Products</li>                    
+                    <li>Community</li>
+
                 </nav>
-                <CiMenuFries onClick={()=>{SetDraw(true)}} className={styles.menu} style={{marginTop:'30px',position:'absolute',right:'10%'}} size={"2em"} />
+                <CiMenuFries color='white' onClick={()=>{SetDraw(true)}} className={styles.menu} style={{marginTop:'30px',position:'absolute',right:'10%'}} size={"2em"} />
        
-    <Title order={1} className={styles.intro}>DPSBK</Title>
-    <Title order={5} className={styles.introText}>dpsbk.live is a student-run website that shares notes, news and assignments, to students of dps bokaro. we have the biggest, year wise directory to all the notes, in a readable format.</Title>
+    <Title order={1} className={[poppins.intro,styles.intro]}>DPSBK<span className={styles.liveSpan} >.live</span></Title>
+    <Text className={styles.introText}>Dpsbk.live is a student-run website that shares notes, news and assignments, to students of dps bokaro. we have the biggest, year wise directory to all the notes, in a readable format.<br></br>
+    <button className={styles.NotesButton}>Notes</button>
+    </Text>
+    
     
         <div className={styles.imageContainer}>
             <div className={styles.im1}>
@@ -72,19 +91,27 @@ const page = () => {
             </div>
     
         </div>
-        <Wave fill='#4ca15d'
-        paused={false}
-        className={styles.wave}
-        options={{
-          height: 5,
-          amplitude: 10,
-          speed: 0.2,
-          points: 3
-        }}
-  />
+        <Wave mask="url(#mask)" fill="#1fd655" className={styles.wave}>
+  <defs>
+    <linearGradient id="gradient" gradientTransform="rotate(90)">
+      <stop offset="0" stopColor="black" />
+      <stop offset="0.5" stopColor="white" />
+      
+    </linearGradient>
+    <mask id="mask">
+      <rect x="0" y="0" width="2000" height="200" fill="url(#gradient)"  />
+    </mask>
+  </defs>
+</Wave>
             </div>
             <div className={styles.notesPage}>
+              <div className={styles.blurrEffect}></div>
                 <h1 className={styles.NotesHeading}>Notes</h1>
+                <div className={styles.ImageDivNotes}>
+                  {ClassSelect===null?
+                  <Image h="100%" w="100%" src={ClassImageMeme}></Image>:
+                  <Image h="100%" w="100%" src={YourClass}></Image>}
+                </div>
       <div className={styles.SelectorDiv}>
            
                 <Select
@@ -93,35 +120,48 @@ const page = () => {
       label="CLASS "
       allowDeselect={false}
       placeholder="Pick value"
+      w={"80%"}
       data={["6","7","8","9","10","11","12"].reverse()}
     />
-             <Select
+             {ClassSelect!=null?<Select
        searchable
-       disabled={ClassSelect===null}
       label="SUBJECT"
       nothingFoundMessage={true}
         value={Sub}
+        w={"80%"}
         onChange={(e)=>{SetSub(e);SetTeachers(null)}}
       placeholder="Pick value"
       data={data[ClassSelect]?Object.keys(data[ClassSelect]):null}
-    />
-             <Select
-        disabled={Sub===null}
+    />:<div></div>}
+             {Sub!=null?<Select
+      
       label="TEACHER"
       placeholder="Pick value"
+      w={"80%"}
       value={Teachers}
       onChange={(e)=>{SetTeachers(e)}}
       searchable
       data={data[ClassSelect]&&data[ClassSelect][Sub]?data[ClassSelect][Sub]:null}
-    />
+    />:<div></div>}
     <Button disabled={Teachers==null} varient={"outline"} color='green'>GET NOTES!</Button>
      
-    
+   
     </div>
-    <Image  priority className={styles.edu} style={{width:'30%',position:'absolute',height:'60vh'}} src={EDUSVG}></Image>
+ 
            </div> </div><div className={styles.ourTeam}>
-          <h1 className={styles.OurTeamHeader}>Our Team</h1>
+          <h1 className={styles.OurTeamHeader}>Leader Bord</h1>
+       
           <div className={styles.cards}>
+             {
+           Object.keys(contri).map((el)=>{
+               return(
+                <div className={styles.sidharat}>
+                 <h1>{el}</h1>
+                 <h2>Posts: {contri[el]}</h2>
+                 </div>
+                  )
+              })
+           }
             <div className={styles.sidharat}>
                <h1>Sarthak Sidhant</h1>
                <h2>Fouder & MD</h2>
@@ -133,9 +173,17 @@ const page = () => {
             <div className={styles.sidharat}>
                <h1>Sarvagya Singh</h1>
                <h2>Head Of Development</h2>
+
             </div>
           </div>
-          
+         </div>
+         <div className={styles.products}>
+         <Center> <Title pt="lg" fw={"lighter"} order={1} c="white">Products</Title></Center>
+            <div className={styles.CardList}>
+              <div className={styles.card}></div>
+              <div className={styles.card}></div>
+              <div className={styles.card}></div>
+            </div>
          </div>
       <div
       className={styles.footerDPS}
@@ -143,7 +191,12 @@ const page = () => {
         <h1>&#169;2024 All Rights Reserved</h1>
       </div>
          
-         
+      </>:<div style={{width:'100vw',height:'100vh',background:'black',display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+        <Loader size={"lg"} mb={"md"} color='green'></Loader>
+        <Text style={{color:'#eee'}}>A product of Sarthak Hyperspace</Text>
+        </div>
+        </div>}
 
          </MantineProvider>
 
