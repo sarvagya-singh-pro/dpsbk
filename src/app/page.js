@@ -7,7 +7,7 @@ import { Poppins } from 'next/font/google';
 import '@mantine/core/styles.css';
 import Image from 'next/image';
 import { CiMenuFries } from "react-icons/ci";
-import { Text, Title, MantineProvider, Select, Button, Drawer, Group, Loader, Center } from '@mantine/core';
+import { Text, Title, MantineProvider, Select, Button, Drawer, Group, Loader, Center, Input } from '@mantine/core';
 import { useState,useEffect } from 'react';
 const poppins=Poppins({subsets: ['latin'],weight:['200']})
    
@@ -46,9 +46,22 @@ const page = () => {
       // Add event listener
       window.addEventListener("resize", handleResize);
     })
-    const data={
-        "10":{"Physics":["Madan Mohan","Rajesh Kr. Bhatt","Ravi Prakash Dwivedi"],"Chemisty":["Sarika"," Sulekha Kumari"],"Biology":["Rita Khawas","Shweta Singh"],"Geography":["Nimisha","Atreyi"],"History":["Ranjana Ojha","Rachna Ojha"],"Political Science":["Ranjana Ojha","Rachna Ojha"],"Economics":["Shusmita","Varij Kharij"],"English":["Anand Kumar","Pabitra Banerjee"],"Hindi":["Kalawati"],"Sanskrit":["Mithilesh Kumar Dubey"],"Mathematics":["Tripti Dutta","Amar Dutta","G Maryapan"],"AI":["Shailendar Gupta (SG)","Sanjib Goswami","Mukesh "]}
-    }
+    const data = {
+      "10": {
+          'Physics': {'Madan Mohan Prasad Sinha (MN)': 'https://drive.google.com/drive/folders/1cBk3HWwngbr5i1Su2BRuRvtMH3YsEkJW?usp=drive_link'},
+          'Biology': {'Rita Khawas (RK)': 'https://drive.google.com/drive/folders/1EwQzdEmUhqYSpGXRR8B0uV1sGTTa5W5r?usp=drive_link'},
+          'Chemistry': {'Sarika (SA)': 'https://drive.google.com/drive/folders/1pU1aUIBlQohAWYE92OmUVSbFMVbzIC95?usp=drive_link'},
+          'Geography': {'Nimisha': 'https://drive.google.com/drive/folders/1IqgNvEZwIEL32BSz8YudIRaA-hJ50F11?usp=drive_link', 'Atreyi': 'https://drive.google.com/drive/folders/1bY4s3zhXuyXb8_UCcsjWFS7l5ox0IR0a?usp=drive_link'},
+          'History': {'Ranjana jha': 'https://drive.google.com/drive/folders/1qQht-IBFZB72-Gcm0Yy5UuNmrBUfFaQX?usp=drive_link', 'Ranjana': 'https://drive.google.com/drive/folders/1RGvfKQ8SFMlWirYxul2hHErHTBrbkwKs?usp=sharing', 'Rachna Ojha': 'https://drive.google.com/drive/folders/139dZtuhakJ-_FJak3GxI13KSw7uDxhXl?usp=drive_link'},
+          'SPL': {'Ranjana jha': 'https://drive.google.com/drive/folders/1LCUELFI-OxwSS7Vjb_ZwbBRm6FbjQhp5?usp=drive_link', 'Ranjana': 'https://drive.google.com/drive/folders/1RGvfKQ8SFMlWirYxul2hHErHTBrbkwKs?usp=sharing', 'Rachna Ojha': 'https://drive.google.com/drive/folders/1OvrPjAtmhEfFQl45vm9X6e4v_BESqzIv?usp=drive_link'},
+          'Economics': {'Varij Khrij': 'https://drive.google.com/drive/folders/1tmBhY0MluDEp_UtjCCsrBVEDzhoq05SP?usp=drive_link', 'Shusmita': 'https://drive.google.com/drive/folders/1UdOQSWrK6_oTcRWPPruIt0BDp8B1ZWrX?usp=drive_link'},
+          'English': {'Anand Kumar': 'https://drive.google.com/drive/folders/1x14pkgMmM5eFJlOYweap8UbwJf6_Sdp1?usp=drive_link'},
+          'Hindi': {'p. Kalawati': 'https://drive.google.com/drive/folders/1meNO20b8sBTffjLwSpWqJ6nY6JzjezGN?usp=drive_link'},
+          'Sanskrit': {'Mithilesh Kumar Dubey(MI)': 'https://drive.google.com/drive/folders/1tXY2AGpaV7koR50okXYRMUQnQm9tgNOY?usp=drive_link'},
+          'Maths': {'Tripti Dutta': 'https://drive.google.com/drive/folders/1MUTZ1aG1_qi9yTbgRm5IgQelO_oClFQo?usp=drive_link'}
+      }
+  }
+    
     
     return (
         <MantineProvider>
@@ -141,9 +154,10 @@ const page = () => {
       value={Teachers}
       onChange={(e)=>{SetTeachers(e)}}
       searchable
-      data={data[ClassSelect]&&data[ClassSelect][Sub]?data[ClassSelect][Sub]:null}
+
+      data={data[ClassSelect]&&data[ClassSelect][Sub]?Object.keys(data[ClassSelect][Sub]):null}
     />:<div></div>}
-    <Button disabled={Teachers==null} varient={"outline"} color='green'>GET NOTES!</Button>
+    <Button disabled={Teachers==null} onClick={()=>{window.open(data[ClassSelect][Sub][Teachers], '_blank').focus();}} varient={"outline"} color='green'>GET NOTES!</Button>
      
    
     </div>
@@ -177,6 +191,12 @@ const page = () => {
             </div>
           </div>
          </div>
+         <div className={styles.Teacher}>
+           <Text>Teacher</Text>
+           <Input placeholder='Search Name'></Input>
+
+
+         </div>
          <div className={styles.products}>
          <Center> <Title pt="lg" fw={"lighter"} order={1} c="white">Products</Title></Center>
             <div className={styles.CardList}>
@@ -185,6 +205,7 @@ const page = () => {
               <div className={styles.card}></div>
             </div>
          </div>
+         
       <div
       className={styles.footerDPS}
       >
