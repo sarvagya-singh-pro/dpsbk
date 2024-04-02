@@ -7,7 +7,7 @@ import { Poppins } from 'next/font/google';
 import '@mantine/core/styles.css';
 import Image from 'next/image';
 import { CiMenuFries } from "react-icons/ci";
-import { Text, Title, MantineProvider, Select, Button, Drawer, Group, Loader, Center, Input } from '@mantine/core';
+import { Text, Title, MantineProvider, Select,Modal,FileInput, Button, Drawer, Group, Loader, Center, Input } from '@mantine/core';
 import { useState,useEffect } from 'react';
 const poppins=Poppins({subsets: ['latin'],weight:['200']})
    
@@ -26,6 +26,7 @@ const page = () => {
     const[draw,SetDraw]=useState(false)
     const [Teachers,SetTeachers]=useState(null)
     const [loading,SetLoading]=useState(false)
+    const [uploadModal,SetuploadModal]=useState(false)
     const [windowSize, setWindowSize] = useState({
       width: undefined,
       height: undefined,
@@ -59,6 +60,11 @@ const page = () => {
           'Hindi': {'p. Kalawati': 'https://drive.google.com/drive/folders/1meNO20b8sBTffjLwSpWqJ6nY6JzjezGN?usp=drive_link'},
           'Sanskrit': {'Mithilesh Kumar Dubey(MI)': 'https://drive.google.com/drive/folders/1tXY2AGpaV7koR50okXYRMUQnQm9tgNOY?usp=drive_link'},
           'Maths': {'Tripti Dutta': 'https://drive.google.com/drive/folders/1MUTZ1aG1_qi9yTbgRm5IgQelO_oClFQo?usp=drive_link'}
+      },"9":{
+        "Geography": {"Nimisha": "https://drive.google.com/drive/folders/1RGvfKQ8SFMlWirYxul2hHErHTBrbkwKs?usp=sharing"},
+        "History": {"Archana roy": "https://drive.google.com/drive/folders/1TPs6ubZE60mjrjD2HbCqgRjtmBOi0R6l?usp=drive_link", "Ranjana jha": "https://drive.google.com/drive/folders/1lEYws3iHCa_at3MNRO1TQR3GbvD6VFGy?usp=drive_link"},
+        "SPL": {"Archana roy sharma": "https://drive.google.com/drive/folders/1jz7hQby8QHC9KcKssLKCSdx3Q50j0NUJ?usp=drive_link"},
+        "Economics": {"Susmita": "https://drive.google.com/drive/folders/1k9bxPxDZHdAo27W4pmGegaCvwEiAvnQH?usp=drive_link"}
       }
   }
     
@@ -68,6 +74,30 @@ const page = () => {
           {loading?
           <>
         <div>
+          <Modal opened={uploadModal} onClose={()=>{SetuploadModal(false)}} >
+          <Input.Wrapper label="Name" >
+          <Input placeholder="Name" />
+            
+          </Input.Wrapper>
+          <Select mt={"xl"} data={["6","7","8","9","10","11","12"].reverse()}  label="Class"
+      placeholder="Class" ></Select>
+          <Input.Wrapper mt={"xl"} label="Subject" >
+          <Input placeholder="Subject" />
+            
+          </Input.Wrapper>
+          <Input.Wrapper mt={"xl"} label="Teacher" >
+          <Input placeholder="Teacher" />
+            
+          </Input.Wrapper>
+
+          <FileInput
+          mt={"xl"}
+      label="Notes"
+      placeholder="Notes"
+    />
+
+    <Center><Button mt="xl" >Upload</Button></Center>
+          </Modal>
         <Drawer position='right' opened={draw} onClose={()=>{SetDraw(false)}} >
         <Group >
         <Button w="100%" variant='default'>News</Button>
@@ -162,7 +192,17 @@ const page = () => {
    
     </div>
  
-           </div> </div><div className={styles.ourTeam}>
+           </div> 
+           <div className={styles.upload}>
+              <Title order={1}>Contribute</Title>
+              <Title order={3} w={"99%"} ta={"center"} c="#999" fw={"lighter"} pt={"2%"} >There is no greater show of Virtue than helping others </Title>
+              <a onClick={()=>{SetuploadModal(true)}} className={styles.neon}> <span></span>
+    <span></span>
+    <span></span>
+    <span></span>Contribute</a>
+           </div>
+           
+           </div><div className={styles.ourTeam}>
           <h1 className={styles.OurTeamHeader}>Leader Bord</h1>
        
           <div className={styles.cards}>
