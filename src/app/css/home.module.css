@@ -4,11 +4,12 @@
     width: 500px;
     position: absolute;
     right: 0px;
-    top: 30px;
+    
     justify-content: space-around;
 }
 .navbar li{
     color: #a3a3a3;
+    padding-top: 30px;
     list-style: none;
     display: inline-block;
   position: relative;
@@ -392,10 +393,10 @@ clear:none;
    
    
     box-shadow: 0 0 5px #03e9f4,
-        0 0 25px #03e9f4,
+        0 0 10px #03e9f4,
 
-        0 0 50px #03e9f4,
-        0 0 200px #03e9f4;
+        0 0  10px #03e9f4,
+        0 0 25px #03e9f4;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 
 }
@@ -436,15 +437,68 @@ clear:none;
 }
 .footerDPS{
     display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    background: #1b1b1b;
+    background: #000;
     width: 100vw;
 }
-.footerDPS h1{
+.footerDPS h2{
+    font-weight: 300;
+    display: inline-block;
+    padding-bottom: 5px;
+    position: relative;
     color: #fff;
+    margin-left: 30px;
+}
+.footerDPS div{
+    margin-left: 30px;
+}
+.social{
+    display: flex;
+    flex-direction: row;
+
+}
+.social div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    border-radius: 3px;
+    height: 60px;
+    margin-left: 50px;
+    margin-top: 25%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 1px solid white;
+    border-radius: 20px;
+    background: #000000;
+    transition:  transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); 
+}
+.social div:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.testimonial{
+    width: 100vw;
+    min-height: 80vh;
+    float: left;
+    background: linear-gradient(#000b3a,#000);
+
+}
+.footerDPS h2:before{
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    bottom: 0;
+    left: 25%;
+    border-bottom: 2px solid #00ffa2;
+}
+.footerDPS ul{
+    list-style: none;
+}
+.footerDPS li{
+    text-decoration: none;
+    color: #fff;
+    margin-top: 20px;
 }
 .neon span:nth-child(4) {
     bottom: -100%;

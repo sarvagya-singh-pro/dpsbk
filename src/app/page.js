@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { CiMenuFries } from "react-icons/ci";
 import { Text, Title, MantineProvider, Select,Modal,FileInput, Button, Drawer, Group, Loader, Center, Input } from '@mantine/core';
 import { useState,useEffect } from 'react';
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram,FaWhatsapp } from "react-icons/fa";
 const poppins=Poppins({subsets: ['latin'],weight:['200']})
    
 const page = () => {
@@ -203,7 +205,7 @@ const page = () => {
            </div>
            
            </div><div className={styles.ourTeam}>
-          <h1 className={styles.OurTeamHeader}>Leader Bord</h1>
+          <h1 className={styles.OurTeamHeader}>Leader Board</h1>
        
           <div className={styles.cards}>
              {
@@ -216,19 +218,7 @@ const page = () => {
                   )
               })
            }
-            <div className={styles.sidharat}>
-               <h1>Sarthak Sidhant</h1>
-               <h2>Fouder & MD</h2>
-            </div>
-            <div className={styles.sidharat}>
-               <h1>Krish</h1>
-               <h2>Founder</h2>
-            </div>
-            <div className={styles.sidharat}>
-               <h1>Sarvagya Singh</h1>
-               <h2>Head Of Development</h2>
-
-            </div>
+           
           </div>
          </div>
          <div className={styles.Teacher}>
@@ -236,6 +226,37 @@ const page = () => {
            <Input placeholder='Search Name'></Input>
 
 
+         </div>
+         <div className={styles.testimonial}>
+          <Center><Title order={1} fw={"lighter"} c="#fff" pt="xl">Our Testimonial</Title></Center>
+          <div className={styles.testimony}>
+           <p> Thanks a lot to the creators for starting it. This Platform has helped me and many others.</p>
+           <h2>Anon</h2>
+
+          </div>
+          <div className={styles.testimony}>
+           <p> A Great Initiative. Really helped a lot of students. Would like sample papers added as well.</p>
+           <h2>Jacqueline</h2>
+
+          </div>
+          <div className={styles.testimony}>
+           <p> Helped me and other students download notes without asking my friends for it. Just Perfect.</p>
+           <h2>Uttkarsh</h2>
+
+          </div>
+          <div className={styles.testimony}>
+           <p>A great place to download notes & study. Definitely helped a lot of students in their studies. Notes are very essential to study, and dpsbk.live has provided notes, the right way.</p>
+           <h2>Akshat</h2>
+
+          </div>
+          <div className={styles.testimony}>
+           <p>प्रभु आपके चरण कहाँ है? मै आपका सदा इस कार्य के लिए आभारी रहूँगा.
+आपने अपने जीवन में एक बहुत नेक काम किया है. आप पुरुष नहीं है, आप महापुरुष है. भगवान् आपको मोक्ष प्रदान करें. सधन्यवाद.</p>
+           <h2>सूर्यवंशी चंद्रशेखर (fr bro)</h2>
+
+          </div>
+          
+          
          </div>
          <div className={styles.products}>
          <Center> <Title pt="lg" fw={"lighter"} order={1} c="white">Products</Title></Center>
@@ -249,7 +270,26 @@ const page = () => {
       <div
       className={styles.footerDPS}
       >
-        <h1>&#169;2024 All Rights Reserved</h1>
+        <div>
+       <h2>About</h2>
+       <ul>
+        <li>Terms of service</li>
+        <li>Privacy Policy</li>
+        <li>Join US</li>
+       </ul>
+       </div>
+       <div>
+       <h2> Contact</h2>
+       <ul>
+        <li>dpsbk.live@gmail.com</li> 
+        <li>Insta: @dpsbk_live</li> 
+         </ul>
+       </div>
+       <div className={styles.social}>
+        <div><FaInstagram size={"40px"} color='#fff'/></div>
+        <div><FaWhatsapp size={"40px"} color='#fff'/></div>
+        <div><FaXTwitter size={"40px"} color='#fff'/></div>
+       </div>
       </div>
          
       </>:<div style={{width:'100vw',height:'100vh',background:'black',display:'flex',alignItems:'center',justifyContent:'center'}}>
