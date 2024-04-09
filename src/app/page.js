@@ -10,12 +10,29 @@ import { CiMenuFries } from "react-icons/ci";
 import { Text, Title, MantineProvider, Select,Modal,FileInput, Button, Drawer, Group, Loader, Center, Input } from '@mantine/core';
 import { useState,useEffect } from 'react';
 import { FaXTwitter } from "react-icons/fa6";
+import Logo from '@/../public/logo.png';
 import { FaInstagram,FaWhatsapp } from "react-icons/fa";
 const poppins=Poppins({subsets: ['latin'],weight:['200']})
    
 const page = () => {
  
  const [contri,SetContri]=useState({})
+ const [showNavbar, setShowNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setShowNavbar(true);
+      } else {
+        setShowNavbar(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
  useEffect(()=>{
   async function a(){
    const data=await (await fetch('/api/contri')).json()
@@ -76,6 +93,14 @@ const page = () => {
           {loading?
           <>
         <div>
+        <nav className={`${styles.navbar2} ${showNavbar ? styles['navbar--show'] : ''}`}>
+      <ul>
+      <a href='#'><li>Notes</li></a>
+      <a href='#'><li>Teachers</li></a>
+      <a href='#'><li>Leaderboard</li></a>
+      <a href='#'><li>Products</li></a>  
+      </ul>
+    </nav>
           <Modal opened={uploadModal} onClose={()=>{SetuploadModal(false)}} >
           <Input.Wrapper label="Name" >
           <Input placeholder="Name" />
@@ -112,13 +137,13 @@ const page = () => {
                 <nav className={styles.navbar}>
                     <li>Notes</li>
                     <li>Teachers</li>
-                    <li>Products</li>                    
-                    <li>Community</li>
+                    <li>Leaderboard</li>
+                    <li>Products</li>     
 
                 </nav>
                 <CiMenuFries color='white' onClick={()=>{SetDraw(true)}} className={styles.menu} style={{marginTop:'30px',position:'absolute',right:'10%'}} size={"2em"} />
        
-    <Title order={1} className={[poppins.intro,styles.intro]}>DPSBK<span className={styles.liveSpan} >.live</span></Title>
+    <Image src={Logo} className={styles.intro}></Image>
     <Text className={styles.introText}>Dpsbk.live is a student-run website that shares notes, news and assignments, to students of dps bokaro. we have the biggest, year wise directory to all the notes, in a readable format.<br></br>
     <button className={styles.NotesButton}>Notes</button>
     </Text>
@@ -221,14 +246,15 @@ const page = () => {
            
           </div>
          </div>
-         <div className={styles.Teacher}>
+         {/* <div className={styles.Teacher}>
            <Text>Teacher</Text>
            <Input placeholder='Search Name'></Input>
 
 
-         </div>
+         </div> */}
          <div className={styles.testimonial}>
-          <Center><Title order={1} fw={"lighter"} c="#fff" pt="xl">Our Testimonial</Title></Center>
+          <Title order={1} fw={"lighter"} ta={"center"} c="#fff" pt="xl">Our Testimonial</Title>
+          <div className={styles.grid}>
           <div className={styles.testimony}>
            <p> Thanks a lot to the creators for starting it. This Platform has helped me and many others.</p>
            <h2>Anon</h2>
@@ -256,7 +282,7 @@ const page = () => {
 
           </div>
           
-          
+          </div>
          </div>
          <div className={styles.products}>
          <Center> <Title pt="lg" fw={"lighter"} order={1} c="white">Products</Title></Center>

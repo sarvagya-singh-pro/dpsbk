@@ -92,8 +92,50 @@
     
     
 }
+.navbar2 {
+    display: none;
+    position: fixed;
+    
+    height: 80px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000000;
+    box-shadow: 0 2px 4px rgba(83, 83, 83, 0.1);
+    z-index: 1000;
+    border-bottom: 1px solid white;
+
+  }
+  .navbar2 ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style: none;
+
+  }
+  .navbar2 ul a:visited { 
+    text-decoration: none; 
+  } 
+  .navbar2 ul a:active{
+    text-decoration: none;
+  }
+  .navbar2 ul a:link{
+    text-decoration: none;
+  }
+  
+  .navbar2 li {
+    color: #fff;
+    padding-left: 30px;
+    text-decoration: none;
+    
+  }
+
+  .navbar--show {
+    display: block;
+    animation: forwards 1s ease navW;
+  }
 .liveSpan{
-    background: #7a71cf;
+    background: #005f34;
     margin-left: 10px ;
     padding-left: 5px;
     padding-right:5px ;
@@ -162,7 +204,7 @@
     border: none;
     position: relative;
     margin: 0px;
-    background: #1fd655;
+    background:  linear-gradient(#1fd655, #000);
 
    
     
@@ -294,7 +336,7 @@
 clear:none; 
     display: block;
     margin-top: 0px;
-    background: linear-gradient(90deg, rgb(243, 243, 243) 30%, rgb(180, 180, 180) 100%);;    
+    background: linear-gradient(rgba(0, 5, 22, 0.98),#000) ;    
 }
 .cards{
     display: flex;
@@ -422,6 +464,7 @@ clear:none;
     padding-top: 10px;
     font-weight: 300;
     position: relative;
+    color: #fff;
     display: inline-block;
     padding-bottom: 5px;
     position: relative;
@@ -433,7 +476,7 @@ clear:none;
     height: 1px;
     bottom: 0;
     left: 25%;
-    border-bottom: 1px solid rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(255, 255, 255);
 }
 .footerDPS{
     display: flex;
@@ -477,11 +520,37 @@ clear:none;
 }
 
 .testimonial{
+   
     width: 100vw;
-    min-height: 80vh;
     float: left;
-    background: linear-gradient(#000b3a,#000);
+    background: linear-gradient(#000000,#000);
 
+}
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Three columns of equal width */
+    grid-gap: 10px; /* Gap between grid items */
+
+}
+.grid div{
+    margin-bottom: 30px;
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: rgba(26, 26, 26, 0.2) 0px 7px 29px 0px;
+    background: #161616;
+}
+.grid div h2{
+    color: #f0f0f0;
+    text-align: center;
+}
+.grid div p{
+    color: #f0f0f0;
+    padding: 30px;
+    width: 90%;
+    text-align: center;
 }
 .footerDPS h2:before{
     content: "";
@@ -549,6 +618,14 @@ clear:none;
     50%,
     100% {
         right: 100%;
+    }
+}
+@keyframes navW {
+    from{
+        margin-top: -80px;
+    }
+    to{
+        margin-top: 0px;
     }
 }
 
